@@ -239,7 +239,7 @@ jobs:
        df -hT
       
     - name: Store build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.2
       env:
        DEBIAN_FRONTEND: noninteractive
       with:
@@ -292,7 +292,7 @@ jobs:
           df -hT
           
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.2
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
@@ -423,7 +423,7 @@ jobs:
          df -hT
       
       - name: Store build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
@@ -476,7 +476,7 @@ jobs:
           df -hT
                     
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.2
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
@@ -614,7 +614,7 @@ jobs:
          # df -hT
 
       - name: Store build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
@@ -667,7 +667,7 @@ jobs:
           df -hT
                    
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.2
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
@@ -768,14 +768,14 @@ jobs:
         run: df -hT      
 
       - name: Upload packages
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
           path: openwrt/bin/packages
          
       - name: Upload openwrt directory
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
