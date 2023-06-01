@@ -7,7 +7,7 @@ src-git telephony https://git.openwrt.org/feed/telephony.git
 src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;packages
 src-git diy2 https://github.com/xiaorouji/openwrt-passwall.git;luci
 src-git NueXini https://github.com/NueXini/NueXini_Packages.git
-src-git kenzok8 https://github.com/jlzsss/jell.git
+src-git kenzok8 https://github.com/kenzok8/jell.git
 src-git packages3 https://github.com/xiangfeidexiaohuo/openwrt-packages.git
 src-git kiddin https://github.com/kiddin9/openwrt-packages.git;master
 src-git liuran https://github.com/liuran001/openwrt-packages;packages
