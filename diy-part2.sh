@@ -11,9 +11,9 @@
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
 
-# svn export --force https://github.com/openwrt/packages/branches/openwrt-23.05/lang/python feeds/packages/lang/python
 rm -rf feeds/packages2/lang/python
-# svn export --force https://github.com/coolsnowwolf/packages/branches/master/lang/python/python3 feeds/packages/lang/python/python3
+svn export --force https://github.com/jlzsss/qt6/branches/main/qt6base feeds/kenzok8/qt6base
+svn export --force https://github.com/jlzsss/qt6/branches/main/qt6tools feeds/kenzok8/qt6tools
 
 # ./scripts/feeds update -a
 # ./scripts/feeds install -a
