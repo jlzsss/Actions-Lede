@@ -19,7 +19,6 @@ rm -rf package/feeds/kenzok8/quickstart
 rm -rf package/feeds/kenzok8/luci-app-quickstart
 ./scripts/feeds install -p packages2 quickstart
 ./scripts/feeds install -p packages2 luci-app-quickstart
-./scripts/feeds install -p luci2 -f luci-app-qbittorrent
 rm -rf package/feeds/lede/php7
 # rm -rf package/feeds/packages/php7
 rm -rf feeds/lede/mt-drivers
