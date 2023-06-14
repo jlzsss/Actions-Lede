@@ -99,17 +99,17 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -sf /mnt/openwrt/bin openwrt/bin 
-         ln -sf /mnt/openwrt/dl openwrt/dl
-       # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-       # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-       # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-       # ln -sf /mnt/openwrt/feeds openwrt/feeds
-       # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-       # ln -sf /mnt/openwrt/tmp openwrt/tmp
+        sudo swapoff /mnt/swapfile
+        sudo rm -rf /mnt/swapfile
+        sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+        ln -sf /mnt/openwrt/bin openwrt/bin 
+        ln -sf /mnt/openwrt/dl openwrt/dl
+        # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+        # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+        # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+        # ln -sf /mnt/openwrt/feeds openwrt/feeds
+        # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+        # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
         df -hT
         
@@ -315,19 +315,19 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/bin openwrt/bin 
-          ln -sf /mnt/openwrt/dl openwrt/dl
-        # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-        # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-        # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-        # ln -sf /mnt/openwrt/feeds openwrt/feeds
-        # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-        # ln -sf /mnt/openwrt/tmp openwrt/tmp
+         sudo swapoff /mnt/swapfile
+         sudo rm -rf /mnt/swapfile
+         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+         ln -sf /mnt/openwrt/bin openwrt/bin 
+         ln -sf /mnt/openwrt/dl openwrt/dl
+         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+         # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+         # ln -sf /mnt/openwrt/feeds openwrt/feeds
+         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+         # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
-           df -hT   
+         df -hT   
               
        # - name: Unzip artifact
        #  run: |
@@ -411,16 +411,16 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
-          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-        # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-        # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
-        # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-        # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-        # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+         tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt 
+         # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+         # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
+         # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+         # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
+         # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
-          df -hT
+         df -hT
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3.1.2
@@ -499,19 +499,19 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/bin openwrt/bin 
-          ln -sf /mnt/openwrt/dl openwrt/dl
-        # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-        # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-        # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-        # ln -sf /mnt/openwrt/feeds openwrt/feeds
-        # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-        # ln -sf /mnt/openwrt/tmp openwrt/tmp
+         sudo swapoff /mnt/swapfile
+         sudo rm -rf /mnt/swapfile
+         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+         ln -sf /mnt/openwrt/bin openwrt/bin 
+         ln -sf /mnt/openwrt/dl openwrt/dl
+         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+         # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+         # ln -sf /mnt/openwrt/feeds openwrt/feeds
+         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+         # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
-           df -hT         
+         df -hT         
               
       # - name: Unzip artifact
       #   run: |
@@ -593,16 +593,16 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
-          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-        # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-        # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
-        # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-        # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-        # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+         tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+         # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
+         # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+         # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
+         # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
-          df -hT
+         df -hT
 
       # - name: Compress directory files
        #  env:
@@ -693,19 +693,19 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/bin openwrt/bin 
-          ln -sf /mnt/openwrt/dl openwrt/dl
-        # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-        # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-        # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-        # ln -sf /mnt/openwrt/feeds openwrt/feeds
-        # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-        # ln -sf /mnt/openwrt/tmp openwrt/tmp
+         sudo swapoff /mnt/swapfile
+         sudo rm -rf /mnt/swapfile
+         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+         ln -sf /mnt/openwrt/bin openwrt/bin 
+         ln -sf /mnt/openwrt/dl openwrt/dl
+         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+         # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+         # ln -sf /mnt/openwrt/feeds openwrt/feeds
+         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+         # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
-           df -hT   
+         df -hT   
                
       # - name: Unzip artifact
         # run: |
