@@ -104,12 +104,12 @@ jobs:
         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
         ln -sf /mnt/openwrt/bin openwrt/bin 
         ln -sf /mnt/openwrt/dl openwrt/dl
+        ln -sf /mnt/openwrt/tmp openwrt/tmp
         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
         # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
         # ln -sf /mnt/openwrt/feeds openwrt/feeds
         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-        # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
         df -hT
         
@@ -216,7 +216,7 @@ jobs:
         path: |
           /mnt/openwrt/dl
           /mnt/openwrt/bin/
-          /workdir/openwrt/tmp/
+          /mnt/openwrt/tmp/
           /workdir/openwrt/feeds/
           /workdir/openwrt/build_dir/hostpkg
           /workdir/openwrt/build_dir/host
@@ -227,7 +227,7 @@ jobs:
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
-       sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+       sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
        tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
        # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -320,12 +320,12 @@ jobs:
          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
          ln -sf /mnt/openwrt/bin openwrt/bin 
          ln -sf /mnt/openwrt/dl openwrt/dl
+         ln -sf /mnt/openwrt/tmp openwrt/tmp
          # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
          # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          # ln -sf /mnt/openwrt/feeds openwrt/feeds
          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-         # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
          df -hT   
               
@@ -344,7 +344,7 @@ jobs:
           path: |
             /mnt/openwrt/dl
             /mnt/openwrt/bin/
-            /workdir/openwrt/tmp/
+            /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
             /workdir/openwrt/build_dir/host
@@ -400,7 +400,7 @@ jobs:
           path: |
             /mnt/openwrt/dl
             /mnt/openwrt/bin/
-            /workdir/openwrt/tmp/
+            /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
             /workdir/openwrt/build_dir/host
@@ -411,7 +411,7 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt 
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -504,12 +504,12 @@ jobs:
          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
          ln -sf /mnt/openwrt/bin openwrt/bin 
          ln -sf /mnt/openwrt/dl openwrt/dl
+         ln -sf /mnt/openwrt/tmp openwrt/tmp
          # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
          # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          # ln -sf /mnt/openwrt/feeds openwrt/feeds
          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-         # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
          df -hT         
               
@@ -528,7 +528,7 @@ jobs:
           path: |
             /mnt/openwrt/dl
             /mnt/openwrt/bin/
-            /workdir/openwrt/tmp/
+            /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
             /workdir/openwrt/build_dir/host
@@ -582,7 +582,7 @@ jobs:
           path: |
             /mnt/openwrt/dl
             /mnt/openwrt/bin/
-            /workdir/openwrt/tmp/
+            /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
             /workdir/openwrt/build_dir/host
@@ -593,7 +593,7 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/tmp/ /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -698,12 +698,12 @@ jobs:
          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
          ln -sf /mnt/openwrt/bin openwrt/bin 
          ln -sf /mnt/openwrt/dl openwrt/dl
+         ln -sf /mnt/openwrt/tmp openwrt/tmp
          # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
          # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          # ln -sf /mnt/openwrt/feeds openwrt/feeds
          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-         # ln -sf /mnt/openwrt/tmp openwrt/tmp
         
          df -hT   
                
@@ -722,7 +722,7 @@ jobs:
           path: |
             /mnt/openwrt/dl
             /mnt/openwrt/bin/
-            /workdir/openwrt/tmp/
+            /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
             /workdir/openwrt/build_dir/host
