@@ -270,7 +270,7 @@ jobs:
      runs-on: ubuntu-latest
      steps:   
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
              
       - name: Initialization environment
         env:
@@ -454,7 +454,7 @@ jobs:
      runs-on: ubuntu-latest
      steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
            
       - name: Initialization environment
         env:
@@ -648,7 +648,7 @@ jobs:
      runs-on: ubuntu-latest
      steps:  
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
 
       - name: Initialization environment
         env:
@@ -845,7 +845,7 @@ jobs:
           keep_minimum_runs: 10
 
       - name: Remove old Releases
-        uses: dev-drprasad/delete-older-releases@v0.1.0
+        uses: dev-drprasad/delete-older-releases@v0.2.1
         if: env.UPLOAD_RELEASE == 'true' && !cancelled()
         with:
           keep_latest: 5
