@@ -223,7 +223,7 @@ jobs:
           # /workdir/openwrt/build_dir/hostpkg
         key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
-     - name: Compress directory
+    - name: Compress directory
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
@@ -312,22 +312,22 @@ jobs:
        
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
-       env:
-        DEBIAN_FRONTEND: noninteractive
-       run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -sf /mnt/openwrt/bin openwrt/bin 
-         ln -sf /mnt/openwrt/dl openwrt/dl
-         ln -sf /mnt/openwrt/tmp openwrt/tmp
-         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-         # ln -sf /mnt/openwrt/feeds openwrt/feeds
-         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          ln -sf /mnt/openwrt/bin openwrt/bin 
+          ln -sf /mnt/openwrt/dl openwrt/dl
+          ln -sf /mnt/openwrt/tmp openwrt/tmp
+          ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+          # ln -sf /mnt/openwrt/feeds openwrt/feeds
+          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         
-         df -hT  
+          df -hT  
               
        # - name: Unzip artifact
        #  run: |
@@ -407,7 +407,7 @@ jobs:
             # /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
-       - name: Compress directory
+      - name: Compress directory
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
@@ -496,9 +496,9 @@ jobs:
        
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
-       env:
-        DEBIAN_FRONTEND: noninteractive
-       run: |
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        run: |
          sudo swapoff /mnt/swapfile
          sudo rm -rf /mnt/swapfile
          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
@@ -589,7 +589,7 @@ jobs:
             # /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
-       - name: Compress directory
+      - name: Compress directory
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
@@ -678,9 +678,9 @@ jobs:
        
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
-       env:
-        DEBIAN_FRONTEND: noninteractive
-       run: |
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        run: |
          sudo swapoff /mnt/swapfile
          sudo rm -rf /mnt/swapfile
          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
