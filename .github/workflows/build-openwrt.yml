@@ -331,7 +331,7 @@ jobs:
               
       - name: Unzip artifact
         run: |
-          cd /workdir && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && mkdir -p openwrt/build_dir/hostpkg && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -515,7 +515,7 @@ jobs:
               
       - name: Unzip artifact
         run: |
-          cd /workdir && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && mkdir -p openwrt/build_dir/hostpkg && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz          
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -698,7 +698,7 @@ jobs:
                
       - name: Unzip artifact
         run: |
-         cd /workdir && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+         cd /workdir && mkdir -p openwrt/build_dir/hostpkg && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
          # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
          # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz         
          # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
