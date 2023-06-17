@@ -219,7 +219,7 @@ jobs:
           /mnt/openwrt/tmp/
           /workdir/openwrt/feeds/
           /workdir/openwrt/build_dir/hostpkg
-          /workdir/openwrt/build_dir/host
+          # /workdir/openwrt/build_dir/host
           /workdir/openwrt/staging_dir/
         key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
@@ -227,7 +227,7 @@ jobs:
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
-       sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+       sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
        tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
        # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -347,7 +347,7 @@ jobs:
             /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
-            /workdir/openwrt/build_dir/host
+            # /workdir/openwrt/build_dir/host
             /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
 
@@ -403,7 +403,7 @@ jobs:
             /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
-            /workdir/openwrt/build_dir/host
+            # /workdir/openwrt/build_dir/host
             /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
@@ -411,7 +411,7 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt 
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -531,7 +531,7 @@ jobs:
             /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
-            /workdir/openwrt/build_dir/host
+            # /workdir/openwrt/build_dir/host
             /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
 
@@ -585,7 +585,7 @@ jobs:
             /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
-            /workdir/openwrt/build_dir/host
+            # /workdir/openwrt/build_dir/host
             /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
@@ -593,7 +593,7 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/host /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
+         sudo rm -rf /workdir/openwrt/hostpkg /workdir/openwrt/feeds/ /workdir/openwrt/staging_dir/
          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -725,7 +725,7 @@ jobs:
             /mnt/openwrt/tmp/
             /workdir/openwrt/feeds/
             /workdir/openwrt/build_dir/hostpkg
-            /workdir/openwrt/build_dir/host
+            # /workdir/openwrt/build_dir/host
             /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
 
