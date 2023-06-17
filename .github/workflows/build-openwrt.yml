@@ -102,10 +102,10 @@ jobs:
         sudo swapoff /mnt/swapfile
         sudo rm -rf /mnt/swapfile
         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-        ln -sf /mnt/openwrt/bin openwrt/bin 
         ln -sf /mnt/openwrt/dl openwrt/dl
-        ln -sf /mnt/openwrt/tmp openwrt/tmp
+        ln -sf /mnt/openwrt/tmp openwrt/tmp        
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+        ln -sf /mnt/openwrt/bin openwrt/bin 
         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
         # ln -sf /mnt/openwrt/feeds openwrt/feeds
@@ -184,7 +184,7 @@ jobs:
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
         make -j$(($(nproc) + 1)) target/linux/compile
-        # make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
+        make -j$(($(nproc) + 1)) package/{python3,golang,php8,ruby,perl,squid,jq,docker}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -200,7 +200,7 @@ jobs:
        make -j1 tools/compile V=s
        make -j1 toolchain/compile V=s
        make -j1 target/linux/compile V=s
-       # make -j1 package/{node,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
+       make -j1 package/{python3,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -215,8 +215,8 @@ jobs:
       with:
         path: |
           /mnt/openwrt/dl
-          /mnt/openwrt/bin/
           /mnt/openwrt/tmp/
+          /mnt/openwrt/bin/
           /mnt/openwrt/staging_dir/
           /workdir/openwrt/feeds/
           /workdir/openwrt/build_dir/host
@@ -227,9 +227,9 @@ jobs:
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
+       tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
        sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-       # tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-       # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+       tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
        # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
        # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
@@ -245,8 +245,8 @@ jobs:
       with:
        name: build-output
        path: |
-          /workdir/openwrt
-          # hostpkg.tar.gz
+          openwrt.tar.gz
+          hostpkg.tar.gz
           # host.tar.gz
           # bin.tar.gz
           # dl.tar.gz
@@ -302,9 +302,9 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         # cd /workdir
-         # mkdir -p openwrt
-         # tar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
+         cd /workdir
+         mkdir -p openwrt
+         tar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=OpenWrt开始编译第二部分"
          # rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir openwrt/dl
@@ -329,9 +329,9 @@ jobs:
         
           df -hT  
               
-       # - name: Unzip artifact
-       #  run: |
-          # cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+      - name: Unzip artifact
+        run: |
+          cd /workdir && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -411,9 +411,9 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
+         tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-         # tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
          # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
@@ -429,8 +429,8 @@ jobs:
         with:
          name: build-output
          path: |
-            /workdir/openwrt
-            # hostpkg.tar.gz
+            openwrt.tar.gz
+            hostpkg.tar.gz
             # host.tar.gz
             # bin.tar.gz
             # dl.tar.gz
@@ -486,9 +486,9 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         # cd /workdir
-         # mkdir -p openwrt
-         # tar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
+         cd /workdir
+         mkdir -p openwrt
+         tar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=OpenWrt开始编译第三部分"
          # rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir openwrt/dl
@@ -513,9 +513,9 @@ jobs:
         
          df -hT          
               
-      # - name: Unzip artifact
-      #   run: |
-          # cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+      - name: Unzip artifact
+        run: |
+          cd /workdir && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz          
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -593,8 +593,9 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
+         tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
          sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-         # tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
@@ -611,8 +612,8 @@ jobs:
         with:
          name: build-output
          path: |
-            /workdir/openwrt
-            # hostpkg.tar.gz
+            openwrt.tar.gz
+            hostpkg.tar.gz
             # host.tar.gz
             # bin.tar.gz
             # dl.tar.gz
@@ -668,9 +669,9 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         # cd /workdir
-         # mkdir -p openwrt
-         # tar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
+         cd /workdir
+         mkdir -p openwrt
+         tar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=OpenWrt开始编译第四部分"
          # rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir openwrt/dl
@@ -695,9 +696,9 @@ jobs:
         
          df -hT   
                
-      # - name: Unzip artifact
-        # run: |
-         # cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+      - name: Unzip artifact
+        run: |
+         cd /workdir && tar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
          # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
          # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz         
          # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
