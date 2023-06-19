@@ -228,8 +228,8 @@ jobs:
        DEBIAN_FRONTEND: noninteractive
       run: |
        sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-       bsdtar -czLf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
-       bsdtar -czLf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+       bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
+       bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
        # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
        # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
@@ -412,8 +412,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         run: |
          sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-         bsdtar -czLf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
-         bsdtar -czLf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
+         bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
          # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
@@ -594,8 +594,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         run: |
          sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-         bsdtar -czLf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
-         bsdtar -czLf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
+         bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
