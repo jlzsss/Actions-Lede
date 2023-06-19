@@ -36,10 +36,10 @@ env:
   SCKEY: ${{ secrets.SCKEY }}
   PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }} 
   FREE_UP_DISK: true
-  UPLOAD_FILES: true
-  UPLOAD_COWTRANSFER: true
-  UPLOAD_WETRANSFER: true
-  UPLOAD_RELEASE: true
+  UPLOAD_FILES: false
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
 jobs:
@@ -227,8 +227,8 @@ jobs:
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
-       tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
        sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
+       tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
        tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
        # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
@@ -411,8 +411,8 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
+         tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
@@ -593,8 +593,8 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
          sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
+         tar --hard-dereference -czf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
          tar --hard-dereference -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
@@ -765,7 +765,22 @@ jobs:
         with:
           name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
           path: openwrt/bin/packages
-         
+
+      - name: Delete packages
+        run: |
+           rm -rf openwrt/bin/packages
+           
+      - name: Upload openwrt build_dir
+        uses: actions/upload-artifact@v3.1.2
+        if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
+        with:
+          name: OpenWrt_build_dir_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+          path: openwrt/build_dir
+
+      - name: Delete build_dir
+        run: |
+           rm -rf openwrt/build_dir
+
       - name: Upload openwrt directory
         uses: actions/upload-artifact@v3.1.2
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
