@@ -104,10 +104,10 @@ jobs:
         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
         ln -sf /mnt/openwrt/dl openwrt/dl
         ln -sf /mnt/openwrt/tmp openwrt/tmp        
-        ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-        ln -sf /mnt/openwrt/bin openwrt/bin 
+        ln -sf /mnt/openwrt/bin openwrt/bin
+        ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host 
+        # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-        # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
         # ln -sf /mnt/openwrt/feeds openwrt/feeds
         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         
@@ -217,26 +217,26 @@ jobs:
           /mnt/openwrt/dl
           /mnt/openwrt/tmp/
           /mnt/openwrt/bin/
-          /mnt/openwrt/staging_dir/
+          /mnt/openwrt/build_dir/host
           /workdir/openwrt/feeds/
-          /workdir/openwrt/build_dir/host
-          # /workdir/openwrt/build_dir/hostpkg
+          /workdir/openwrt/build_dir/hostpkg
+          # /workdir/openwrt/staging_dir/
         key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
         
     - name: Compress directory
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
-       sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-       bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
-       bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-       # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-       # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
-       # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-       # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-       # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+        sudo rm -rf /mnt/openwrt/dl /mnt/openwrt/tmp/  /mnt/openwrt/bin/ /mnt/openwrt/build_dir/host /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/hostpkg
+        bsdtar -czlf staging_dir.tar.gz /workdir/openwrt/staging_dir && sudo rm -rf /workdir/openwrt/staging_dir
+        bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+        # bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
+        # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+        # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
+        # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+        # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
-       df -hT
+        df -hT
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v3.1.2
@@ -246,11 +246,11 @@ jobs:
        name: build-output
        path: |
           openwrt.tar.gz
-          hostpkg.tar.gz
+          staging_dir.tar.gz
+          # hostpkg.tar.gz
           # host.tar.gz
           # bin.tar.gz
           # dl.tar.gz
-          # staging_dir.tar.gz
           # feeds.tar.gz
           
     - name: WeChat notification
@@ -313,25 +313,25 @@ jobs:
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
-         DEBIAN_FRONTEND: noninteractive
+          DEBIAN_FRONTEND: noninteractive
         run: |
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
           sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/bin openwrt/bin 
           ln -sf /mnt/openwrt/dl openwrt/dl
-          ln -sf /mnt/openwrt/tmp openwrt/tmp
-          ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          ln -sf /mnt/openwrt/tmp openwrt/tmp        
+          ln -sf /mnt/openwrt/bin openwrt/bin
+          ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host 
+          # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
           # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           # ln -sf /mnt/openwrt/feeds openwrt/feeds
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         
-          df -hT  
+          df -hT
               
       - name: Unzip artifact
         run: |
-          cd /workdir && mkdir -p openwrt/build_dir/hostpkg && bsdtar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && mkdir -p openwrt/staging_dir && bsdtar -xzf staging_dir.tar.gz -C /workdir/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -342,13 +342,13 @@ jobs:
         uses: actions/cache/restore@v3.3.1
         with:
           path: |
-            /mnt/openwrt/dl
-            /mnt/openwrt/bin/
-            /mnt/openwrt/tmp/
-            /mnt/openwrt/staging_dir/            
-            /workdir/openwrt/feeds/
-            /workdir/openwrt/build_dir/host
-            # /workdir/openwrt/build_dir/hostpkg
+             /mnt/openwrt/dl
+             /mnt/openwrt/tmp/
+             /mnt/openwrt/bin/
+             /mnt/openwrt/build_dir/host
+             /workdir/openwrt/feeds/
+             /workdir/openwrt/build_dir/hostpkg
+             # /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
 
       - name: Delete cache
@@ -398,29 +398,30 @@ jobs:
         uses: actions/cache/save@v3.3.1
         with:
           path: |
-            /mnt/openwrt/dl
-            /mnt/openwrt/bin/
-            /mnt/openwrt/tmp/
-            /mnt/openwrt/staging_dir/
-            /workdir/openwrt/feeds/
-            /workdir/openwrt/build_dir/host
-            # /workdir/openwrt/build_dir/hostpkg
+             /mnt/openwrt/dl
+             /mnt/openwrt/tmp/
+             /mnt/openwrt/bin/
+             /mnt/openwrt/build_dir/host
+             /workdir/openwrt/feeds/
+             /workdir/openwrt/build_dir/hostpkg
+             # /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+
         
       - name: Compress directory
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-         bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
-         bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-         # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
-         # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-         # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+          sudo rm -rf /mnt/openwrt/dl /mnt/openwrt/tmp/ /mnt/openwrt/bin/ /mnt/openwrt/build_dir/host /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/hostpkg
+          bsdtar -czlf staging_dir.tar.gz /workdir/openwrt/staging_dir && sudo rm -rf /workdir/openwrt/staging_dir
+          bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+          # bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
+          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
+          # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+          # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
-         df -hT
+          df -hT
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3.1.2
@@ -430,11 +431,11 @@ jobs:
          name: build-output
          path: |
             openwrt.tar.gz
-            hostpkg.tar.gz
+            staging_dir.tar.gz
+            # hostpkg.tar.gz
             # host.tar.gz
             # bin.tar.gz
             # dl.tar.gz
-            # staging_dir.tar.gz
             # feeds.tar.gz
        
       - name: WeChat notification
@@ -497,27 +498,27 @@ jobs:
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
-         DEBIAN_FRONTEND: noninteractive
+          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -sf /mnt/openwrt/bin openwrt/bin 
-         ln -sf /mnt/openwrt/dl openwrt/dl
-         ln -sf /mnt/openwrt/tmp openwrt/tmp
-         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-         # ln -sf /mnt/openwrt/feeds openwrt/feeds
-         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          ln -sf /mnt/openwrt/dl openwrt/dl
+          ln -sf /mnt/openwrt/tmp openwrt/tmp        
+          ln -sf /mnt/openwrt/bin openwrt/bin
+          ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host 
+          # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+          # ln -sf /mnt/openwrt/feeds openwrt/feeds
+          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         
-         df -hT          
+          df -hT         
               
       - name: Unzip artifact
         run: |
-          cd /workdir && mkdir -p openwrt/build_dir/hostpkg && bsdtar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && mkdir -p openwrt/staging_dir && bsdtar -xzf staging_dir.tar.gz -C /workdir/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
-          # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz          
+          # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
@@ -526,14 +527,15 @@ jobs:
         uses: actions/cache/restore@v3.3.1
         with:
           path: |
-            /mnt/openwrt/dl
-            /mnt/openwrt/bin/
-            /mnt/openwrt/tmp/
-            /mnt/openwrt/staging_dir/            
-            /workdir/openwrt/feeds/
-            /workdir/openwrt/build_dir/host
-            # /workdir/openwrt/build_dir/hostpkg
+             /mnt/openwrt/dl
+             /mnt/openwrt/tmp/
+             /mnt/openwrt/bin/
+             /mnt/openwrt/build_dir/host
+             /workdir/openwrt/feeds/
+             /workdir/openwrt/build_dir/hostpkg
+             # /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+
 
       - name: Delete cache
         run: |
@@ -580,30 +582,30 @@ jobs:
         uses: actions/cache/save@v3.3.1
         with:
           path: |
-            /mnt/openwrt/dl
-            /mnt/openwrt/bin/
-            /mnt/openwrt/tmp/
-            /mnt/openwrt/staging_dir/
-            /workdir/openwrt/feeds/
-            /workdir/openwrt/build_dir/host
-            # /workdir/openwrt/build_dir/hostpkg
+             /mnt/openwrt/dl
+             /mnt/openwrt/tmp/
+             /mnt/openwrt/bin/
+             /mnt/openwrt/build_dir/host
+             /workdir/openwrt/feeds/
+             /workdir/openwrt/build_dir/hostpkg
+             # /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+
         
       - name: Compress directory
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo rm -rf /mnt/openwrt/staging_dir/ /mnt/openwrt/dl /mnt/openwrt/bin/ /mnt/openwrt/tmp/ /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/host
-         bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
-         bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         # bsdtar -czlf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-         # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-         # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
-         # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         # bsdtar -czlf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-         # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+          sudo rm -rf /mnt/openwrt/dl /mnt/openwrt/tmp/ /mnt/openwrt/bin/ /mnt/openwrt/build_dir/host /workdir/openwrt/feeds/ /workdir/openwrt/build_dir/hostpkg
+          bsdtar -czlf staging_dir.tar.gz /workdir/openwrt/staging_dir && sudo rm -rf /workdir/openwrt/staging_dir
+          bsdtar -czlf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+          # bsdtar -czlf hostpkg.tar.gz /workdir/openwrt/build_dir/hostpkg && sudo rm -rf /workdir/openwrt/build_dir/hostpkg
+          # bsdtar -czlf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+          # bsdtar -czlf bin.tar.gz /mnt/openwrt/bin && sudo rm -rf /mnt/openwrt/bin
+          # bsdtar -czlf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+          # bsdtar -czlf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
-         df -hT
+          df -hT
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3.1.2
@@ -613,11 +615,11 @@ jobs:
          name: build-output
          path: |
             openwrt.tar.gz
-            hostpkg.tar.gz
+            staging_dir.tar.gz
+            # hostpkg.tar.gz
             # host.tar.gz
             # bin.tar.gz
             # dl.tar.gz
-            # staging_dir.tar.gz
             # feeds.tar.gz
    
       - name: WeChat notification
@@ -680,43 +682,44 @@ jobs:
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
-         DEBIAN_FRONTEND: noninteractive
+          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -sf /mnt/openwrt/bin openwrt/bin 
-         ln -sf /mnt/openwrt/dl openwrt/dl
-         ln -sf /mnt/openwrt/tmp openwrt/tmp
-         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-         # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-         # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-         # ln -sf /mnt/openwrt/feeds openwrt/feeds
-         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          ln -sf /mnt/openwrt/dl openwrt/dl
+          ln -sf /mnt/openwrt/tmp openwrt/tmp        
+          ln -sf /mnt/openwrt/bin openwrt/bin
+          ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host 
+          # ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          # ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+          # ln -sf /mnt/openwrt/feeds openwrt/feeds
+          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         
-         df -hT   
+          df -hT
                
       - name: Unzip artifact
         run: |
-         cd /workdir && mkdir -p openwrt/build_dir/hostpkg && bsdtar -xzf hostpkg.tar.gz -C /workdir/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
-         # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
-         # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz         
-         # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
-         # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
-         # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
+          cd /workdir && mkdir -p openwrt/staging_dir && bsdtar -xzf staging_dir.tar.gz -C /workdir/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
+          # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz
+          # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
+          # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
         with:
           path: |
-            /mnt/openwrt/dl
-            /mnt/openwrt/bin/
-            /mnt/openwrt/tmp/
-            /mnt/openwrt/staging_dir/            
-            /workdir/openwrt/feeds/
-            /workdir/openwrt/build_dir/host
-            # /workdir/openwrt/build_dir/hostpkg
+             /mnt/openwrt/dl
+             /mnt/openwrt/tmp/
+             /mnt/openwrt/bin/
+             /mnt/openwrt/build_dir/host
+             /workdir/openwrt/feeds/
+             /workdir/openwrt/build_dir/hostpkg
+             # /workdir/openwrt/staging_dir/
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+
 
       - name: Delete cache
         run: |
