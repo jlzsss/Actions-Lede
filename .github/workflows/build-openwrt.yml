@@ -350,7 +350,10 @@ jobs:
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
-
+          restore-keys: |
+             ${{ runner.os }}-openwrt-
+             ${{ runner.os }}-
+             
       - name: Delete cache
         run: |
          curl -L \
@@ -535,7 +538,9 @@ jobs:
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
-
+          restore-keys: |
+             ${{ runner.os }}-openwrt-
+             ${{ runner.os }}-
 
       - name: Delete cache
         run: |
@@ -719,7 +724,9 @@ jobs:
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
-
+          restore-keys: |
+             ${{ runner.os }}-openwrt-
+             ${{ runner.os }}-
 
       - name: Delete cache
         run: |
