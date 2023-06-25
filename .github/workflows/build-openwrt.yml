@@ -221,7 +221,7 @@ jobs:
           # /mnt/openwrt/staging_dir/
           /workdir/openwrt/feeds/
           /workdir/openwrt/build_dir/hostpkg
-        key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+        key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
         
     - name: Compress directory
       env:
@@ -349,7 +349,7 @@ jobs:
              # /mnt/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
           restore-keys: |
              ${{ runner.os }}-openwrt-
              ${{ runner.os }}-
@@ -408,7 +408,7 @@ jobs:
              # /mnt/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
 
         
       - name: Compress directory
@@ -537,7 +537,7 @@ jobs:
              # /mnt/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
           restore-keys: |
              ${{ runner.os }}-openwrt-
              ${{ runner.os }}-
@@ -594,7 +594,7 @@ jobs:
              /mnt/openwrt/build_dir/host
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
 
         
       - name: Compress directory
@@ -723,7 +723,7 @@ jobs:
              # /mnt/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('/workdir/openwrt/.config') }}
+          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
           restore-keys: |
              ${{ runner.os }}-openwrt-
              ${{ runner.os }}-
