@@ -184,7 +184,7 @@ jobs:
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
         make -j$(($(nproc) + 1)) target/linux/compile
-        make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
+        # make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -200,7 +200,7 @@ jobs:
        make -j1 tools/compile V=s
        make -j1 toolchain/compile V=s
        make -j1 target/linux/compile V=s
-       make -j1 package/{node,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
+       # make -j1 package/{node,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -210,6 +210,11 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
+    - name: Set cache directory permissions
+      run: |
+        chmod 777 -R /home/runner/work/_temp
+        chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+        
     - name: Save cache
       uses: actions/cache/save@v3.3.1
       with:
@@ -222,7 +227,7 @@ jobs:
           /workdir/openwrt/feeds/
           /workdir/openwrt/build_dir/hostpkg
         key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
-        
+
     - name: Compress directory
       env:
        DEBIAN_FRONTEND: noninteractive
@@ -331,12 +336,17 @@ jobs:
               
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz       
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf bin.tar.gz -C /mnt/openwrt/bin --strip-components=3 && rm bin.tar.gz
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
+
+      - name: Set cache directory permissions
+        run: |
+          chmod 777 -R /home/runner/work/_temp
+          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
 
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
@@ -396,7 +406,12 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
- 
+
+      - name: Set cache directory permissions
+        run: |
+          chmod 777 -R /home/runner/work/_temp
+          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+
       - name: Save cache
         uses: actions/cache/save@v3.3.1
         with:
@@ -409,8 +424,7 @@ jobs:
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
-
-        
+      
       - name: Compress directory
         env:
          DEBIAN_FRONTEND: noninteractive
@@ -526,6 +540,11 @@ jobs:
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
+      - name: Set cache directory permissions
+        run: |
+          chmod 777 -R /home/runner/work/_temp
+          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
         with:
@@ -582,7 +601,12 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
-        
+
+      - name: Set cache directory permissions
+        run: |
+          chmod 777 -R /home/runner/work/_temp
+          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+
       - name: Save cache
         uses: actions/cache/save@v3.3.1
         with:
@@ -595,8 +619,7 @@ jobs:
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
           key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
-
-        
+          
       - name: Compress directory
         env:
          DEBIAN_FRONTEND: noninteractive
@@ -711,6 +734,11 @@ jobs:
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
+
+      - name: Set cache directory permissions
+        run: |
+          chmod 777 -R /home/runner/work/_temp
+          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
 
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
