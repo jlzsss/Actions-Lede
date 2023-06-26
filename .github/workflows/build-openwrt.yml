@@ -182,8 +182,8 @@ jobs:
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
-        make -j$(($(nproc) + 1)) toolchain/compile
-        make -j$(($(nproc) + 1)) target/linux/compile
+        # make -j$(($(nproc) + 1)) toolchain/compile
+        # make -j$(($(nproc) + 1)) target/linux/compile
         # make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
@@ -198,8 +198,8 @@ jobs:
       run: |
        cd openwrt
        make -j1 tools/compile V=s
-       make -j1 toolchain/compile V=s
-       make -j1 target/linux/compile V=s
+       # make -j1 toolchain/compile V=s
+       # make -j1 target/linux/compile V=s
        # make -j1 package/{node,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -209,9 +209,6 @@ jobs:
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
-
-    - name: Set cache directory permissions
-      run: chmod 777 -R /home/runner/work/_temp
         
     - name: Save cache
       uses: actions/cache/save@v3.3.1
@@ -305,7 +302,7 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt
+         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          cd /workdir
          mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -360,7 +357,7 @@ jobs:
              
       - name: Delete cache
         run: |
-         rm -rf ${{ github.workspace }}/mnt/openwrt
+         rm -rf ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
@@ -401,9 +398,6 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
-
-      - name: Set cache directory permissions
-        run: chmod 777 -R /home/runner/work/_temp
 
       - name: Save cache
         uses: actions/cache/save@v3.3.1
@@ -497,7 +491,7 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-          mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt
+          mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
           cd /workdir
           mkdir -p openwrt
           bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -552,7 +546,7 @@ jobs:
 
       - name: Delete cache
         run: |
-         rm -rf ${{ github.workspace }}/mnt/openwrt
+         rm -rf ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
@@ -591,9 +585,6 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
-
-      - name: Set cache directory permissions
-        run: chmod 777 -R /home/runner/work/_temp
 
       - name: Save cache
         uses: actions/cache/save@v3.3.1
@@ -687,7 +678,7 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt
+         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          cd /workdir
          mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -742,7 +733,7 @@ jobs:
 
       - name: Delete cache
         run: |
-         rm -rf ${{ github.workspace }}/mnt/openwrt
+         rm -rf ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
