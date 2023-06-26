@@ -302,7 +302,6 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          cd /workdir
          mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -340,7 +339,7 @@ jobs:
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
       - name: Restore cache
-        uses: actions/cache/restore@v3.3.1
+        uses: actions/cache@v2.1.8
         with:
           path: |
              /mnt/openwrt/dl
@@ -357,8 +356,7 @@ jobs:
              
       - name: Delete cache
         run: |
-         rm -rf ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
-         curl -L \
+          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
@@ -491,7 +489,6 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-          mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
           cd /workdir
           mkdir -p openwrt
           bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -529,7 +526,7 @@ jobs:
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
       - name: Restore cache
-        uses: actions/cache/restore@v3.3.1
+        uses: actions/cache@v2.1.8
         with:
           path: |
              /mnt/openwrt/dl
@@ -546,8 +543,7 @@ jobs:
 
       - name: Delete cache
         run: |
-         rm -rf ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
-         curl -L \
+          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
@@ -678,7 +674,6 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
          cd /workdir
          mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -716,7 +711,7 @@ jobs:
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
       - name: Restore cache
-        uses: actions/cache/restore@v3.3.1
+        uses: actions/cache@v2.1.8
         with:
           path: |
              /mnt/openwrt/dl
@@ -733,8 +728,7 @@ jobs:
 
       - name: Delete cache
         run: |
-         rm -rf ${{ github.workspace }}/mnt/openwrt/dl ${{ github.workspace }}/mnt/openwrt/tmp ${{ github.workspace }}/mnt/openwrt/bin ${{ github.workspace }}/mnt/openwrt/build_dir/host
-         curl -L \
+          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
