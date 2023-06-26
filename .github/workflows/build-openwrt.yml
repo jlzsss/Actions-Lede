@@ -211,9 +211,7 @@ jobs:
       run: df -hT
 
     - name: Set cache directory permissions
-      run: |
-        chmod 777 -R /home/runner/work/_temp
-        chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+      run: chmod 777 -R /home/runner/work/_temp
         
     - name: Save cache
       uses: actions/cache/save@v3.3.1
@@ -307,6 +305,7 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
+         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt
          cd /workdir
          mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -343,11 +342,6 @@ jobs:
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
-      - name: Set cache directory permissions
-        run: |
-          chmod 777 -R /home/runner/work/_temp
-          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
-
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
         with:
@@ -366,6 +360,7 @@ jobs:
              
       - name: Delete cache
         run: |
+         rm -rf ${{ github.workspace }}/mnt/openwrt
          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
@@ -408,9 +403,7 @@ jobs:
         run: df -hT
 
       - name: Set cache directory permissions
-        run: |
-          chmod 777 -R /home/runner/work/_temp
-          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+        run: chmod 777 -R /home/runner/work/_temp
 
       - name: Save cache
         uses: actions/cache/save@v3.3.1
@@ -504,13 +497,14 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         cd /workdir
-         mkdir -p openwrt
-         bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
-         ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=OpenWrt开始编译第三部分"
-         # rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir openwrt/dl
-         # curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
+          mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt
+          cd /workdir
+          mkdir -p openwrt
+          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
+          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
+          curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=OpenWrt开始编译第三部分"
+          # rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir openwrt/dl
+          # curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
        
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
@@ -540,11 +534,6 @@ jobs:
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
-      - name: Set cache directory permissions
-        run: |
-          chmod 777 -R /home/runner/work/_temp
-          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
-
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
         with:
@@ -563,6 +552,7 @@ jobs:
 
       - name: Delete cache
         run: |
+         rm -rf ${{ github.workspace }}/mnt/openwrt
          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
@@ -603,9 +593,7 @@ jobs:
         run: df -hT
 
       - name: Set cache directory permissions
-        run: |
-          chmod 777 -R /home/runner/work/_temp
-          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
+        run: chmod 777 -R /home/runner/work/_temp
 
       - name: Save cache
         uses: actions/cache/save@v3.3.1
@@ -699,6 +687,7 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
+         mkdir -p -m 777 ${{ github.workspace }}/mnt/openwrt
          cd /workdir
          mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
@@ -735,11 +724,6 @@ jobs:
           # cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
-      - name: Set cache directory permissions
-        run: |
-          chmod 777 -R /home/runner/work/_temp
-          chmod 777 -R ${{ github.workspace }}/mnt/openwrt
-
       - name: Restore cache
         uses: actions/cache/restore@v3.3.1
         with:
@@ -758,6 +742,7 @@ jobs:
 
       - name: Delete cache
         run: |
+         rm -rf ${{ github.workspace }}/mnt/openwrt
          curl -L \
           -X DELETE \
           -H "Accept: application/vnd.github+json" \
