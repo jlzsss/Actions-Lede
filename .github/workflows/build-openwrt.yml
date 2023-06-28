@@ -414,10 +414,10 @@ jobs:
         run: |
           rm -rf /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
           mkdir -p -m 777 /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
-          cp -apf /mnt/openwrt/dl /workdir/openwrt/dl
-          cp -apf /mnt/openwrt/tmp /workdir/openwrt/tmp
-          cp -apf /mnt/openwrt/bin /workdir/openwrt/bin
-          cp -apf /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
+          cp -aprf /mnt/openwrt/dl /workdir/openwrt/dl
+          cp -aprf /mnt/openwrt/tmp /workdir/openwrt/tmp
+          cp -aprf /mnt/openwrt/bin /workdir/openwrt/bin
+          cp -aprf /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
 
       - name: Check space usage
         if: (!cancelled())
@@ -625,10 +625,10 @@ jobs:
         run: |
           rm -rf /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
           mkdir -p -m 777 /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
-          cp -apf /mnt/openwrt/dl /workdir/openwrt/dl
-          cp -apf /mnt/openwrt/tmp /workdir/openwrt/tmp
-          cp -apf /mnt/openwrt/bin /workdir/openwrt/bin
-          cp -apf /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
+          cp -aprf /mnt/openwrt/dl /workdir/openwrt/dl
+          cp -aprf /mnt/openwrt/tmp /workdir/openwrt/tmp
+          cp -aprf /mnt/openwrt/bin /workdir/openwrt/bin
+          cp -aprf /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
 
       - name: Check space usage
         if: (!cancelled())
