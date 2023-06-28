@@ -409,13 +409,15 @@ jobs:
         run: df -hT
 
       - name: Move files
+        env:
+         DEBIAN_FRONTEND: noninteractive
         run: |
           rm -rf /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
           mkdir -p -m 777 /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
-          mv /mnt/openwrt/dl /workdir/openwrt/dl
-          mv /mnt/openwrt/tmp /workdir/openwrt/tmp
-          mv /mnt/openwrt/bin /workdir/openwrt/bin
-          mv /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
+          cp -apf /mnt/openwrt/dl /workdir/openwrt/dl
+          cp -apf /mnt/openwrt/tmp /workdir/openwrt/tmp
+          cp -apf /mnt/openwrt/bin /workdir/openwrt/bin
+          cp -apf /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
 
       - name: Check space usage
         if: (!cancelled())
@@ -618,13 +620,15 @@ jobs:
         run: df -hT
 
       - name: Move files
+        env:
+         DEBIAN_FRONTEND: noninteractive
         run: |
           rm -rf /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
           mkdir -p -m 777 /workdir/openwrt/dl /workdir/openwrt/tmp /workdir/openwrt/bin /workdir/openwrt/build_dir/host
-          mv /mnt/openwrt/dl /workdir/openwrt/dl
-          mv /mnt/openwrt/tmp /workdir/openwrt/tmp
-          mv /mnt/openwrt/bin /workdir/openwrt/bin
-          mv /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
+          cp -apf /mnt/openwrt/dl /workdir/openwrt/dl
+          cp -apf /mnt/openwrt/tmp /workdir/openwrt/tmp
+          cp -apf /mnt/openwrt/bin /workdir/openwrt/bin
+          cp -apf /mnt/openwrt/build_dir/host /workdir/openwrt/build_dir/host
 
       - name: Check space usage
         if: (!cancelled())
