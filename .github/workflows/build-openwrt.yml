@@ -62,7 +62,7 @@ jobs:
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
         -H "X-GitHub-Api-Version: 2022-11-28" \
-        https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches?key=${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+        https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
  
     - name: Initialization environment
       env:
@@ -221,7 +221,7 @@ jobs:
           # /workdir/openwrt/staging_dir/
           /workdir/openwrt/feeds/
           /workdir/openwrt/build_dir/hostpkg
-        key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+        key: openwrt
 
     - name: Compress directory
       env:
@@ -349,10 +349,18 @@ jobs:
              # /workdir/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+          key: openwrt
           restore-keys: |
-             ${{ runner.os }}-openwrt-
-             ${{ runner.os }}
+             openwrt
+
+      - name: Delete cache
+        run: |
+          curl -L \
+          -X DELETE \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
                 
       - name: Move files
         run: |
@@ -399,15 +407,6 @@ jobs:
         if: (!cancelled())
         run: df -hT
 
-      - name: Delete cache
-        run: |
-          curl -L \
-          -X DELETE \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches?key=${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
-
       - name: Move files
         env:
          DEBIAN_FRONTEND: noninteractive
@@ -434,7 +433,7 @@ jobs:
              # /mnt/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+          key: openwrt
       
       - name: Compress directory
         env:
@@ -562,10 +561,18 @@ jobs:
              # /workdir/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+          key: openwrt
           restore-keys: |
-             ${{ runner.os }}-openwrt-
-             ${{ runner.os }}
+                openwrt
+
+      - name: Delete cache
+        run: |
+          curl -L \
+          -X DELETE \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
         
       - name: Move files
         run: |
@@ -610,15 +617,6 @@ jobs:
         if: (!cancelled())
         run: df -hT
 
-      - name: Delete cache
-        run: |
-          curl -L \
-          -X DELETE \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches?key=${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
-
       - name: Move files
         env:
          DEBIAN_FRONTEND: noninteractive
@@ -645,7 +643,7 @@ jobs:
              /workdir/openwrt/build_dir/host
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+          key: openwrt
           
       - name: Compress directory
         env:
@@ -773,10 +771,18 @@ jobs:
              # /workdir/openwrt/staging_dir/
              /workdir/openwrt/feeds/
              /workdir/openwrt/build_dir/hostpkg
-          key: ${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
+          key: openwrt
           restore-keys: |
-             ${{ runner.os }}-openwrt-
-             ${{ runner.os }}
+                openwrt
+
+      - name: Delete cache
+        run: |
+          curl -L \
+          -X DELETE \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
 
       - name: Move files
         run: |
@@ -820,15 +826,6 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT      
-
-      - name: Delete cache
-        run: |
-          curl -L \
-          -X DELETE \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches?key=${{ runner.os }}-openwrt-${{ hashFiles('${{ github.workspace }}/openwrt/.config') }}
 
       - name: Upload packages
         uses: actions/upload-artifact@v3.1.2
