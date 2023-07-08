@@ -34,6 +34,7 @@ env:
   DIY_P2_SH: diy-part2.sh
   DIY_P3_SH: diy-part3.sh
   SCKEY: ${{ secrets.SCKEY }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }} 
   FREE_UP_DISK: true
   UPLOAD_FILES: false
