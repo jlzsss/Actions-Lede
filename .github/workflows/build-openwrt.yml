@@ -61,7 +61,6 @@ jobs:
         gh extension install actions/gh-actions-cache
           
         REPO=${{ github.repository }}
-        # BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
         BRANCH=master
         
         echo "Fetching list of cache key"
@@ -372,7 +371,6 @@ jobs:
           gh extension install actions/gh-actions-cache
           
           REPO=${{ github.repository }}
-          # BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
           BRANCH=master
           
           echo "Fetching list of cache key"
@@ -597,7 +595,6 @@ jobs:
           gh extension install actions/gh-actions-cache
           
           REPO=${{ github.repository }}
-          # BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
           BRANCH=master
           
           echo "Fetching list of cache key"
@@ -820,7 +817,6 @@ jobs:
           gh extension install actions/gh-actions-cache
           
           REPO=${{ github.repository }}
-          # BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
           BRANCH=master
           
           echo "Fetching list of cache key"
