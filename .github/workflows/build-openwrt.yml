@@ -56,14 +56,9 @@ jobs:
         curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=开始编译OpenWrt"
         # curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
         
-    - name: Delete cache
-      run: |
-       curl -L \
-        -X DELETE \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
+    - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+      with:
+        github-token: ${{secrets.GH_TOKEN}}
  
     - name: Initialization environment
       env:
@@ -352,16 +347,11 @@ jobs:
              /workdir/openwrt/build_dir/hostpkg
           key: openwrt
           restore-keys: |
-             openwrt
+               openwrt
 
-      - name: Delete cache
-        run: |
-          curl -L \
-          -X DELETE \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
+      - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+        with:
+          github-token: ${{secrets.GH_TOKEN}}
                 
       - name: Move files
         run: |
@@ -564,16 +554,11 @@ jobs:
              /workdir/openwrt/build_dir/hostpkg
           key: openwrt
           restore-keys: |
-                openwrt
+               openwrt
 
-      - name: Delete cache
-        run: |
-          curl -L \
-          -X DELETE \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
+      - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+        with:
+          github-token: ${{secrets.GH_TOKEN}}
         
       - name: Move files
         run: |
@@ -774,16 +759,11 @@ jobs:
              /workdir/openwrt/build_dir/hostpkg
           key: openwrt
           restore-keys: |
-                openwrt
+               openwrt
 
-      - name: Delete cache
-        run: |
-          curl -L \
-          -X DELETE \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/jlzsss/Actions-Lede/actions/caches/openwrt?force=true
+      - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+        with:
+          github-token: ${{secrets.GH_TOKEN}}
 
       - name: Move files
         run: |
