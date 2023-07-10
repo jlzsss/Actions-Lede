@@ -55,8 +55,9 @@ jobs:
       run: |
         curl -s -o /dev/null http://www.pushplus.plus/send --data "token=${{ secrets.PUSHPLUS_TOKEN }}&content=开始编译OpenWrt"
         # curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
-        
-    - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+
+    - name: Delete cache 
+      uses: dev-hato/github-actions-cache-cleaner@v0.0.21
       with:
         github-token: ${{secrets.GH_TOKEN}}
  
@@ -348,8 +349,9 @@ jobs:
           key: openwrt
           restore-keys: |
                openwrt
-
-      - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+               
+      - name: Delete cache 
+        uses: dev-hato/github-actions-cache-cleaner@v0.0.21
         with:
           github-token: ${{secrets.GH_TOKEN}}
                 
@@ -556,10 +558,11 @@ jobs:
           restore-keys: |
                openwrt
 
-      - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+      - name: Delete cache 
+        uses: dev-hato/github-actions-cache-cleaner@v0.0.21
         with:
           github-token: ${{secrets.GH_TOKEN}}
-        
+          
       - name: Move files
         run: |
           mv /workdir/openwrt/dl /mnt/openwrt/dl
@@ -761,7 +764,8 @@ jobs:
           restore-keys: |
                openwrt
 
-      - uses: dev-hato/github-actions-cache-cleaner@v0.0.21
+      - name: Delete cache 
+        uses: dev-hato/github-actions-cache-cleaner@v0.0.21
         with:
           github-token: ${{secrets.GH_TOKEN}}
 
