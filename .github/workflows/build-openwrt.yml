@@ -197,7 +197,7 @@ jobs:
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
         make -j$(($(nproc) + 1)) target/linux/compile
-        # make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
+        make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -882,21 +882,6 @@ jobs:
         with:
           name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
           path: openwrt/bin/packages
-
-      - name: Delete packages
-        run: |
-           rm -rf openwrt/bin/packages
-           
-      - name: Upload openwrt build_dir
-        uses: actions/upload-artifact@v3.1.2
-        if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
-        with:
-          name: OpenWrt_build_dir_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: openwrt/build_dir
-
-      - name: Delete build_dir
-        run: |
-           rm -rf openwrt/build_dir
 
       - name: Upload openwrt directory
         uses: actions/upload-artifact@v3.1.2
