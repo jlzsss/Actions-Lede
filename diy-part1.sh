@@ -57,7 +57,7 @@ svn export --force https://github.com/openwrt/packages/branches/openwrt-23.05/ne
 # svn export --force https://github.com/openwrt/packages/branches/master/lang/python package/feeds/packages/python
 # svn export --force https://github.com/kiddin9/openwrt-packages/trunk/luci-app-smartdns package/feeds/luci/luci-app-smartdns
 # svn export --force https://github.com/kiddin9/openwrt-packages/trunk/smartdns package/feeds/packages/smartdns
-# svn export --force https://github.com/openwrt/routing/branches/openwrt-19.07/cjdns package/feeds/routing/cjdns
+svn export --force https://github.com/openwrt/routing/branches/openwrt-23.05/cjdns package/feeds/routing/cjdns
 svn export --force https://github.com/kenzok8/jell/branches/main/gost package/feeds/packages/gost
 svn export --force https://github.com/kenzok8/jell/branches/main/luci-app-adguardhome package/feeds/packages/luci-app-adguardhome
 svn export --force https://github.com/openwrt/packages/branches/openwrt-23.05/libs/tiff package/feeds/packages/tiff
